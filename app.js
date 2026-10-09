@@ -41,6 +41,20 @@
     car.querySelector('[data-prev]').addEventListener('click',()=>show((index-1+dots.length)%dots.length));
     car.querySelector('[data-next]').addEventListener('click',()=>show((index+1)%dots.length));
   });
+  const map=document.querySelector('.kyushu-map'),expandMap=document.querySelector('.map-expand');
+  if(map&&expandMap){
+    const mapDialog=document.createElement('dialog');mapDialog.className='route-map-dialog';mapDialog.setAttribute('aria-label','放大九州行程路線圖');
+    const hint=document.createElement('p');hint.textContent='可左右滑動 · 點地名開啟地圖';
+    const close=document.createElement('button');close.type='button';close.className='lightbox-close';close.setAttribute('aria-label','關閉路線圖');close.textContent='×';
+    const scroll=document.createElement('div');scroll.className='map-dialog-scroll';
+    const copy=map.cloneNode(true);copy.querySelector('#map-arrow').id='map-arrow-expanded';copy.querySelectorAll('[marker-end]').forEach(path=>path.setAttribute('marker-end','url(#map-arrow-expanded)'));
+    scroll.append(copy);mapDialog.append(hint,close,scroll);document.body.append(mapDialog);
+    expandMap.addEventListener('click',e=>{e.preventDefault();mapDialog.showModal();document.body.style.overflow='hidden';});
+    close.addEventListener('click',()=>mapDialog.close());
+    mapDialog.addEventListener('click',e=>{if(e.target===mapDialog)mapDialog.close();});
+    mapDialog.addEventListener('close',()=>{document.body.style.overflow='';expandMap.focus({preventScroll:true});});
+    copy.querySelector('a[href="#route-mountain-stops"]').addEventListener('click',e=>{e.preventDefault();mapDialog.close();document.getElementById('route-mountain-stops').scrollIntoView({behavior:motion(),block:'center'});});
+  }
   const dialog=document.getElementById('lightbox');
   if(dialog){
     const image=dialog.querySelector('img'),caption=dialog.querySelector('.lightbox-caption'),count=dialog.querySelector('[data-lightbox-count]');
