@@ -6,7 +6,8 @@
   var FALLBACK_TTL = 24 * 60 * 60 * 1000;
   var REQUEST_TIMEOUT = 12000;
   var FORECAST_DAYS = 16;
-  var SLOT_LABELS = ['00–04', '04–08', '08–12', '12–16', '16–20', '20–24'];
+  var SLOT_HOURS = 3;
+  var SLOT_LABELS = ['00–03', '03–06', '06–09', '09–12', '12–15', '15–18', '18–21', '21–24'];
   var CODES = {
     0: ['☀️', '晴'], 1: ['🌤️', '晴時多雲'], 2: ['⛅', '多雲'], 3: ['☁️', '陰'],
     45: ['🌫️', '霧'], 48: ['🌫️', '霧凇'], 51: ['🌦️', '小毛雨'], 53: ['🌦️', '毛雨'],
@@ -55,9 +56,9 @@
   }
 
   // Open-Meteo precipitation probability describes the hour ENDING at its timestamp.
-  // Thus 00–04 uses 01:00, 02:00, 03:00, 04:00; 20–24 includes tomorrow at 00:00.
+  // Thus 00–03 uses 01:00, 02:00, 03:00; 21–24 includes tomorrow at 00:00.
   function rainSlots(hourly, date) {
-    var slots = [[], [], [], [], [], []];
+    var slots = SLOT_LABELS.map(function () { return []; });
     if (!hourly || !Array.isArray(hourly.time) || !Array.isArray(hourly.precipitation_probability)) {
       return slots.map(function () { return null; });
     }
@@ -76,9 +77,9 @@
         return;
       }
       var value = hourly.precipitation_probability[index];
-      if (finite(value) && value >= 0 && value <= 100) slots[Math.floor((endHour - 1) / 4)].push(value);
+      if (finite(value) && value >= 0 && value <= 100) slots[Math.floor((endHour - 1) / SLOT_HOURS)].push(value);
     });
-    return slots.map(function (values) { return values.length === 4 ? Math.max.apply(null, values) : null; });
+    return slots.map(function (values) { return values.length === SLOT_HOURS ? Math.max.apply(null, values) : null; });
   }
 
   function addText(parent, tag, className, text) {
@@ -155,14 +156,14 @@
     panel.main.setAttribute('aria-label', location.name + '，' + weather[1] + '，最高 ' + temperature(high) + '，最低 ' + temperature(low));
     panel.grid.replaceChildren();
     panel.grid.hidden = false;
-    panel.grid.setAttribute('aria-label', '每四小時區間最高降雨機率');
+    panel.grid.setAttribute('aria-label', '每三小時區間最高降雨機率');
     rainSlots(payload.hourly, panel.date).forEach(function (value, slot) {
       var level = value === null ? 'rain-missing' : value < 30 ? 'rain-low' : value < 60 ? 'rain-mid' : 'rain-high';
       var cell = document.createElement('div');
       cell.className = 'rain-cell ' + level + (value !== null && value >= 60 ? ' high' : value !== null && value >= 30 ? ' mid' : '');
       addText(cell, 'small', 'rain-time', SLOT_LABELS[slot]);
       addText(cell, 'strong', 'rain-prob', value === null ? '—' : Math.round(value) + '%');
-      cell.title = value === null ? '此時段資料尚未完整' : '此四小時內最高每小時降雨機率';
+      cell.title = value === null ? '此時段資料尚未完整' : '此三小時內最高每小時降雨機率';
       panel.grid.appendChild(cell);
     });
     panel.updated.textContent = fetchedLabel() + (state.loading ? ' · 更新中…' : state.stale ? ' · 暫用上次資料' : '');
