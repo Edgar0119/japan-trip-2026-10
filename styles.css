@@ -27,3 +27,6 @@
 @media print{.float-tools,.view-link,.weather-details,.weather-mini,.carousel-controls{display:none}.container{max-width:none;margin:0;box-shadow:none}.day-header{position:static}.feature,.flight-card{break-inside:avoid}.photo-grid{max-height:280px}.day{break-before:page}body{background:white}}
 
 .photo-badge.right.onsen-badge{display:inline-flex;align-items:center;gap:6px;background:#d94b12;color:#fff;padding:6px 10px;font-size:calc(14px * var(--scale));font-weight:700;line-height:1.3;box-shadow:0 2px 8px #0002}.onsen-symbol{font-family:Arial,"Hiragino Sans",sans-serif;font-size:1.4em;line-height:1;font-weight:400}
+
+/* Hosshou: large onsen photo on the left, three photos stacked on the right. */
+.photo-grid.one-three{grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:repeat(3,minmax(0,1fr));aspect-ratio:1.6}.photo-grid.one-three .photo:first-child{grid-column:1;grid-row:1 / 4}.photo-grid.one-three .photo:not(:first-child){grid-column:2}
