@@ -33,10 +33,9 @@
 
 .lightbox-close{display:grid;place-items:center;padding:0;line-height:1}.lightbox-close svg{display:block;width:24px;height:24px;pointer-events:none}
 
-/* Keep all Gansou photos in a compact, swipeable gallery. */
-#gansou .carousel-track{height:clamp(170px,46vw,240px);aspect-ratio:auto;overscroll-behavior-x:contain}
-#gansou .carousel-slide .photo img{object-fit:contain}
-#gansou .carousel-controls{flex-wrap:nowrap;gap:8px;padding:4px 10px}
-#gansou .carousel-dot{width:20px;height:32px}
-#gansou .carousel-step{width:32px;height:32px}
-#gansou .carousel-nav{flex-shrink:0}
+/* Gansou: keep all seven photos visible in two compact collage rows. */
+#gansou .photo-grid.four{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(0,1fr);aspect-ratio:4}
+#gansou .gansou-extra-photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:3px;margin-top:3px;aspect-ratio:4}
+#gansou .gansou-gallery-meta{display:flex;align-items:center;gap:7px;padding:7px 9px;background:var(--soft)}
+#gansou .gansou-gallery-meta .photo-badge{position:static;box-shadow:none;font-size:11px;line-height:1.6;padding:3px 6px;white-space:nowrap}
+#gansou .gansou-gallery-hint{margin-left:auto;color:var(--muted);font-size:11px;line-height:1.5;white-space:nowrap}
