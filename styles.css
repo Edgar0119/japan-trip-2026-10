@@ -30,3 +30,5 @@
 
 /* Hosshou: large onsen photo on the left, three photos stacked on the right. */
 .photo-grid.one-three{grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:repeat(3,minmax(0,1fr));aspect-ratio:1.6}.photo-grid.one-three .photo:first-child{grid-column:1;grid-row:1 / 4}.photo-grid.one-three .photo:not(:first-child){grid-column:2}
+
+.lightbox-close{display:grid;place-items:center;padding:0;line-height:1}.lightbox-close svg{display:block;width:24px;height:24px;pointer-events:none}

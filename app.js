@@ -45,7 +45,7 @@
   if(map&&expandMap){
     const mapDialog=document.createElement('dialog');mapDialog.className='route-map-dialog';mapDialog.setAttribute('aria-label','放大九州行程路線圖');
     const hint=document.createElement('p');hint.textContent='可左右滑動 · 點地名開啟地圖';
-    const close=document.createElement('button');close.type='button';close.className='lightbox-close';close.setAttribute('aria-label','關閉路線圖');close.textContent='×';
+    const close=document.createElement('button');close.type='button';close.className='lightbox-close';close.setAttribute('aria-label','關閉路線圖');close.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
     const scroll=document.createElement('div');scroll.className='map-dialog-scroll';
     const copy=map.cloneNode(true);copy.querySelector('#map-arrow').id='map-arrow-expanded';copy.querySelectorAll('[marker-end]').forEach(path=>path.setAttribute('marker-end','url(#map-arrow-expanded)'));
     scroll.append(copy);mapDialog.append(hint,close,scroll);document.body.append(mapDialog);
