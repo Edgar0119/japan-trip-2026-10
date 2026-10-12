@@ -39,3 +39,14 @@
 #gansou .gansou-gallery-meta{display:flex;align-items:center;gap:7px;padding:7px 9px;background:var(--soft)}
 #gansou .gansou-gallery-meta .photo-badge{position:static;box-shadow:none;font-size:11px;line-height:1.6;padding:3px 6px;white-space:nowrap}
 #gansou .gansou-gallery-hint{margin-left:auto;color:var(--muted);font-size:11px;line-height:1.5;white-space:nowrap}
+
+/* Photo viewer: swipe or drag to browse, with explicit controls and gesture guidance. */
+#lightbox{padding:56px 16px 24px}
+#lightbox .lightbox-stage{display:flex;align-items:center;justify-content:center;width:min(1100px,100%);height:min(65dvh,720px);flex:0 1 auto;min-height:0;overflow:hidden;touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none;cursor:grab}
+#lightbox .lightbox-stage.is-dragging{cursor:grabbing}
+#lightbox .lightbox-stage img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;-webkit-user-drag:none}
+#lightbox .lightbox-swipe-hint{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0 0;padding:5px 12px;border:1px solid #ffffff30;border-radius:20px;color:#f5f5f5;background:#ffffff0d;font-size:14px;line-height:1.5}
+#lightbox .lightbox-swipe-hint span{font-size:19px;line-height:1}
+#lightbox .lightbox-nav{gap:24px;margin-top:10px}
+#lightbox .lightbox-nav button{width:48px;height:44px;font-size:22px}
+#lightbox .lightbox-nav[hidden],#lightbox .lightbox-swipe-hint[hidden]{display:none}
