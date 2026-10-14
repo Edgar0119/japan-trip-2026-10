@@ -50,3 +50,6 @@
 #lightbox .lightbox-nav{gap:24px;margin-top:10px}
 #lightbox .lightbox-nav button{width:48px;height:44px;font-size:22px}
 #lightbox .lightbox-nav[hidden],#lightbox .lightbox-swipe-hint[hidden]{display:none}
+
+/* Compact lunch gallery, using the existing swipe controls. */
+#ichiran .carousel-track{aspect-ratio:2}
